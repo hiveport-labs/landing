@@ -1,10 +1,16 @@
-import { Logo } from "./Logo";
+import Image from "next/image";
 
 export function SignetSection() {
   return (
     <section className="bg-grey-100 py-28 md:py-40 px-6">
       <div className="max-w-3xl mx-auto text-center">
-        <Logo className="w-20 h-20 md:w-28 md:h-28 mx-auto text-black" />
+        <Image
+          src="/signet.png"
+          alt="Hiveport signet"
+          width={112}
+          height={112}
+          className="mx-auto w-20 h-20 md:w-28 md:h-28"
+        />
 
         <div className="w-12 h-px bg-grey-400 mx-auto my-10 md:my-14" />
 

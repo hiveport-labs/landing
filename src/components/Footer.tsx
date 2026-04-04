@@ -1,4 +1,4 @@
-import { Logo } from "./Logo";
+import Image from "next/image";
 
 export function Footer() {
   return (
@@ -6,12 +6,13 @@ export function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start gap-12 md:gap-8">
           {/* Brand */}
-          <div className="flex items-center gap-3">
-            <Logo className="w-7 h-7 text-white" />
-            <span className="font-display text-xs tracking-[0.25em] uppercase">
-              Hiveport Labs
-            </span>
-          </div>
+          <Image
+            src="/logo.png"
+            alt="Hiveport"
+            width={160}
+            height={32}
+            className="h-6 md:h-7 w-auto invert"
+          />
 
           {/* Link columns */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-10 md:gap-16 text-xs tracking-[0.15em] uppercase">

@@ -1,22 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useCipherCycle } from "@/hooks/useCipherCycle";
 
 const WORDS = ["PRIVACY", "DECENTRALIZATION", "AI", "INFRASTRUCTURE"] as const;
 
 export function HeroSection() {
-  const [index, setIndex] = useState(0);
-  const [animationKey, setAnimationKey] = useState(0);
-
-  const advance = useCallback(() => {
-    setIndex((prev) => (prev + 1) % WORDS.length);
-    setAnimationKey((prev) => prev + 1);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(advance, 2500);
-    return () => clearInterval(interval);
-  }, [advance]);
+  const { display, word } = useCipherCycle(WORDS);
 
   return (
     <section className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 xl:px-32">
@@ -24,10 +13,11 @@ export function HeroSection() {
         <h1 className="font-display text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-[1.05] uppercase">
           <span className="block">WE BUILD</span>
           <span
-            key={animationKey}
-            className="block text-orange animate-rotate-word"
+            className="block text-orange cipher-word"
+            aria-label={word}
+            aria-live="polite"
           >
-            {WORDS[index]}
+            {display}
           </span>
         </h1>
 

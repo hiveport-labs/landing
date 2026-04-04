@@ -20,25 +20,6 @@ body {
   color: var(--color-black);
 }
 
-@keyframes fade-in-up {
-  0% {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  15% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  85% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-12px);
-  }
-}
-
-.animate-rotate-word {
-  animation: fade-in-up 2.5s ease-in-out;
+.cipher-word {
+  min-height: 1lh;
 }

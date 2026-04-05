@@ -1,28 +1,44 @@
 "use client";
 
+import Image from "next/image";
 import { useCipherCycle } from "@/hooks/useCipherCycle";
 
-const WORDS = ["PRIVACY", "DECENTRALIZATION", "AI", "INFRASTRUCTURE"] as const;
+const WORDS = ["PRIVACY", "DECENTRALIZATION", "INTELLIGENCE"] as const;
 
 export function HeroSection() {
-  const { display, word } = useCipherCycle(WORDS);
+  const { chars, word } = useCipherCycle(WORDS);
 
   return (
     <section className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 xl:px-32">
       <div className="max-w-5xl">
+        <Image
+          src="/logo.png"
+          alt="Hiveport Labs"
+          width={400}
+          height={80}
+          priority
+          className="h-10 md:h-14 lg:h-16 w-auto mb-16 md:mb-20"
+        />
         <h1 className="font-display text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-[1.05] uppercase">
           <span className="block">WE BUILD</span>
           <span
-            className="block text-orange cipher-word"
+            className="cipher-word text-orange"
             aria-label={word}
             aria-live="polite"
           >
-            {display}
+            {chars.map((c, i) => (
+              <span
+                key={i}
+                className={`cipher-char${c.settled ? " settled" : ""}`}
+              >
+                {c.char}
+              </span>
+            ))}
           </span>
         </h1>
 
         <p className="mt-8 md:mt-12 text-grey-600 text-lg md:text-xl max-w-xl leading-relaxed">
-          Distributed data technologies from the ground up.
+          Decentralized infrastructure for humans & agents.
         </p>
 
         <a

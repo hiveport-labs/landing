@@ -1,113 +1,139 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect } from "react";
 
-const CIPHER_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*?!+=<>{}[]~^";
-const TICK_INTERVAL = 40; // ~25fps
-const DECODE_DURATION = 800;
-const HOLD_DURATION = 1600;
-const SCRAMBLE_OUT_DURATION = 500;
-const GAP_DURATION = 300;
+const CIPHER_CHARS = "ΔΘΛΞΠΣΦΨΩ∑∂∇≈⊕⊗◆◇▲▽⌬☰";
 
-type Phase = "decode-in" | "hold" | "scramble-out" | "gap";
+const SCRAMBLE_MS = 600;
+const DECODE_MS = 1200;
+const HOLD_MS = 2200;
+const ENCODE_MS = 600;
+const CYCLE_MS = 80; // how long each random char lingers before changing
 
-function randomChar(): string {
+type Phase = "scramble" | "decode" | "hold" | "encode";
+
+export interface CipherChar {
+  char: string;
+  settled: boolean;
+}
+
+function randomCipher(): string {
   return CIPHER_CHARS[Math.floor(Math.random() * CIPHER_CHARS.length)];
 }
 
+function fillRandom(len: number): string[] {
+  return Array.from({ length: len }, () => randomCipher());
+}
+
+/** Returns an array where result[charIndex] = sequence position (when it settles/unsettles). */
+function randomSettleOrder(length: number): number[] {
+  const indices: number[] = Array.from({ length }, (_, i) => i);
+  for (let i = indices.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [indices[i], indices[j]] = [indices[j], indices[i]];
+  }
+  const result = new Array<number>(length);
+  for (let i = 0; i < length; i++) {
+    result[indices[i]] = i;
+  }
+  return result;
+}
+
 export function useCipherCycle(words: readonly string[]): {
-  display: string;
+  chars: CipherChar[];
   word: string;
 } {
-  const [display, setDisplay] = useState(words[0]);
-  const indexRef = useRef(0);
-  const phaseRef = useRef<Phase>("hold");
-  const phaseStartRef = useRef(Date.now());
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const holdTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const startTicking = useCallback(() => {
-    if (intervalRef.current !== null) return;
-    intervalRef.current = setInterval(() => {
-      const now = Date.now();
-      const elapsed = now - phaseStartRef.current;
-
-      switch (phaseRef.current) {
-        case "decode-in": {
-          const word = words[indexRef.current];
-          const stagger = DECODE_DURATION / word.length;
-          let result = "";
-          for (let i = 0; i < word.length; i++) {
-            result += elapsed >= i * stagger ? word[i] : randomChar();
-          }
-          setDisplay(result);
-          if (elapsed >= DECODE_DURATION) {
-            phaseRef.current = "hold";
-            phaseStartRef.current = now;
-            // Pause ticking during hold
-            if (intervalRef.current !== null) {
-              clearInterval(intervalRef.current);
-              intervalRef.current = null;
-            }
-            setDisplay(word);
-            holdTimeoutRef.current = setTimeout(() => {
-              phaseRef.current = "scramble-out";
-              phaseStartRef.current = Date.now();
-              startTicking();
-            }, HOLD_DURATION);
-          }
-          break;
-        }
-        case "scramble-out": {
-          const word = words[indexRef.current];
-          const progress = elapsed / SCRAMBLE_OUT_DURATION;
-          let result = "";
-          for (let i = 0; i < word.length; i++) {
-            result += Math.random() < progress ? "\u00A0" : randomChar();
-          }
-          setDisplay(result);
-          if (elapsed >= SCRAMBLE_OUT_DURATION) {
-            phaseRef.current = "gap";
-            phaseStartRef.current = now;
-            setDisplay("");
-          }
-          break;
-        }
-        case "gap": {
-          if (elapsed >= GAP_DURATION) {
-            indexRef.current = (indexRef.current + 1) % words.length;
-            phaseRef.current = "decode-in";
-            phaseStartRef.current = now;
-          }
-          break;
-        }
-      }
-    }, TICK_INTERVAL);
-  }, [words]);
-
-  const stopTicking = useCallback(() => {
-    if (intervalRef.current !== null) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-    if (holdTimeoutRef.current !== null) {
-      clearTimeout(holdTimeoutRef.current);
-      holdTimeoutRef.current = null;
-    }
-  }, []);
+  const [chars, setChars] = useState<CipherChar[]>(() =>
+    Array.from({ length: words[0].length }, () => ({
+      char: randomCipher(),
+      settled: false,
+    }))
+  );
+  const [currentWord, setCurrentWord] = useState(words[0]);
 
   useEffect(() => {
-    // Start with a hold on the first word, then begin cycling
-    phaseRef.current = "hold";
-    phaseStartRef.current = Date.now();
-    holdTimeoutRef.current = setTimeout(() => {
-      phaseRef.current = "scramble-out";
-      phaseStartRef.current = Date.now();
-      startTicking();
-    }, HOLD_DURATION);
+    let index = 0;
+    let phase: Phase = "scramble";
+    let phaseStart = 0;
+    let settleOrder: number[] = [];
+    let prevLength = words[0].length;
+    let rafId = 0;
 
-    return stopTicking;
-  }, [startTicking, stopTicking]);
+    // Cached random chars — refreshed every CYCLE_MS so symbols linger
+    let glyphs = fillRandom(words[0].length);
+    let lastCycleTs = 0;
 
-  return { display, word: words[indexRef.current] };
+    const tick = (ts: number) => {
+      if (phaseStart === 0) phaseStart = ts;
+
+      const elapsed = ts - phaseStart;
+      const word = words[index];
+
+      if (phase === "scramble" && elapsed >= SCRAMBLE_MS) {
+        phase = "decode";
+        phaseStart = ts;
+        settleOrder = randomSettleOrder(word.length);
+        prevLength = word.length;
+      } else if (phase === "decode" && elapsed >= DECODE_MS) {
+        phase = "hold";
+        phaseStart = ts;
+        setChars(Array.from(word, (c) => ({ char: c, settled: true })));
+      } else if (phase === "hold" && elapsed >= HOLD_MS) {
+        phase = "encode";
+        phaseStart = ts;
+        settleOrder = randomSettleOrder(word.length);
+      } else if (phase === "encode" && elapsed >= ENCODE_MS) {
+        prevLength = word.length;
+        index = (index + 1) % words.length;
+        setCurrentWord(words[index]);
+        phase = "scramble";
+        phaseStart = ts;
+      }
+
+      const w = words[index];
+      const e = ts - phaseStart;
+
+      // Refresh the random glyph buffer at CYCLE_MS intervals
+      if (ts - lastCycleTs >= CYCLE_MS) {
+        const maxLen = Math.max(...words.map((wd) => wd.length));
+        glyphs = fillRandom(maxLen);
+        lastCycleTs = ts;
+      }
+
+      if (phase === "scramble") {
+        const target = w.length;
+        const progress = Math.min(e / SCRAMBLE_MS, 1);
+        const len = Math.round(prevLength + (target - prevLength) * progress);
+        setChars(
+          Array.from({ length: len }, (_, i) => ({
+            char: glyphs[i],
+            settled: false,
+          }))
+        );
+      } else if (phase === "decode") {
+        const stagger = DECODE_MS / w.length;
+        setChars(
+          Array.from({ length: w.length }, (_, i) => {
+            const done = e >= settleOrder[i] * stagger;
+            return { char: done ? w[i] : glyphs[i], settled: done };
+          })
+        );
+      } else if (phase === "encode") {
+        const stagger = ENCODE_MS / w.length;
+        setChars(
+          Array.from({ length: w.length }, (_, i) => {
+            const still = e < settleOrder[i] * stagger;
+            return { char: still ? w[i] : glyphs[i], settled: still };
+          })
+        );
+      }
+
+      rafId = requestAnimationFrame(tick);
+    };
+
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, [words]);
+
+  return { chars, word: currentWord };
 }

@@ -21,5 +21,15 @@ body {
 }
 
 .cipher-word {
+  display: block;
   min-height: 1lh;
+}
+
+.cipher-char {
+  opacity: 0.5;
+  transition: opacity 150ms ease;
+}
+
+.cipher-char.settled {
+  opacity: 1;
 }

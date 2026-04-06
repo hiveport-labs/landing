@@ -19,13 +19,13 @@ export function Footer() {
             <div className="space-y-4">
               <p className="text-grey-400 mb-2">Projects</p>
               <a href="#" className="block text-grey-400 hover:text-white transition-colors">
-                Networking
+                Communication
               </a>
               <a href="#" className="block text-grey-400 hover:text-white transition-colors">
-                Imaging
+                Data
               </a>
               <a href="#" className="block text-grey-400 hover:text-white transition-colors">
-                Crypto
+                Education
               </a>
             </div>
 
@@ -43,12 +43,6 @@ export function Footer() {
 
             <div className="space-y-4">
               <p className="text-grey-400 mb-2">Contact</p>
-              <a
-                href="mailto:hello@hiveport.io"
-                className="block text-grey-400 hover:text-white transition-colors"
-              >
-                hello@hiveport.io
-              </a>
             </div>
           </div>
         </div>

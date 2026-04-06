@@ -2,19 +2,19 @@ import { PillarCard } from "./PillarCard";
 
 const PILLARS = [
   {
-    title: "Hiveport Networking",
+    title: "Communication",
     description:
-      "Peer-to-peer zero-trust networking infrastructure. Encrypted mesh overlays without central authority — enabling private, permissionless connectivity at scale.",
+      "Peer-to-peer zero-trust networking infrastructure for an agentic future. Encrypted mesh overlays without central authority — enabling private, permissionless connectivity at scale.",
   },
   {
-    title: "Decentralized Imaging",
+    title: "Data",
     description:
-      "Privacy-first autonomous image storage and distribution. Content-addressed, end-to-end encrypted media pipelines built for a surveillance-free future.",
+      "Privacy-first autonomous data storage and distribution. Content-addressed, end-to-end encrypted media pipelines built for a surveillance-free future.",
   },
   {
-    title: "Crypto Adoption",
+    title: "Education",
     description:
-      "Chain-agnostic identity and payment rails. Bridging decentralized finance with real-world utility through open protocols and seamless integration.",
+      "AI supported learning systems for kids. For a personalized learning experience which fosters the intrinsic will to explore.",
   },
 ] as const;
 

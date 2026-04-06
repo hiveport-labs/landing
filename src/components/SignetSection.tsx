@@ -19,11 +19,9 @@ export function SignetSection() {
         </h2>
 
         <p className="text-grey-600 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
-          The Hiveport signet represents the convergence of imaging science,
-          distributed data, and decentralized networks. Each aperture blade
-          within the hexagon symbolizes a facet of our research — privacy,
-          infrastructure, and open protocols — converging into a unified core.
-          This is our DNA.
+          Privacy and freedom are two sides of the same coin; you can't have one without the other. 
+          Yet, most of our technology relies on centralized services that pose a massive threat to both. 
+          At Hiveport, we are building the foundational tech to decentralize the core infrastructure of our daily lives.
         </p>
       </div>
     </section>

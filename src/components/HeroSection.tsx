@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useCipherCycle } from "@/hooks/useCipherCycle";
 
-const WORDS = ["PRIVACY", "DECENTRALIZATION", "INTELLIGENCE"] as const;
+const WORDS = ["PRIVACY", "AUTONOMY", "INTELLIGENCE"] as const;
 
 export function HeroSection() {
   const { chars, word } = useCipherCycle(WORDS);

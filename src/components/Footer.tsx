@@ -9,8 +9,8 @@ export function Footer() {
           <Image
             src="/logo.png"
             alt="Hiveport"
-            width={160}
-            height={32}
+            width={484}
+            height={105}
             className="h-6 md:h-7 w-auto invert"
           />
 

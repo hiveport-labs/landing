@@ -14,8 +14,8 @@ export function HeroSection() {
         <Image
           src="/logo.png"
           alt="Hiveport Labs"
-          width={400}
-          height={80}
+          width={484}
+          height={105}
           priority
           className="h-10 md:h-14 lg:h-16 w-auto mb-16 md:mb-20"
         />

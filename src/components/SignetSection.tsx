@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export function SignetSection() {
   return (
-    <section className="bg-grey-100 py-28 md:py-40 px-6">
+    <section id="signet" className="bg-grey-100 py-28 md:py-40 px-6">
       <div className="max-w-3xl mx-auto text-center">
         <Image
           src="/signet.png"
@@ -19,7 +19,7 @@ export function SignetSection() {
         </h2>
 
         <p className="text-grey-600 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
-          Privacy and freedom are two sides of the same coin - you can't have one without the other. 
+          Privacy and freedom are two sides of the same coin - you can&apos;t have one without the other.
           Yet, most of our technology relies on centralized services that pose a massive threat to both. 
           At Hiveport, we are building foundational tech to decentralize the core infrastructure of our daily lives.
         </p>

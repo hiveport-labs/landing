@@ -9,7 +9,7 @@ export function HeroSection() {
   const { chars, word } = useCipherCycle(WORDS);
 
   return (
-    <section className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 xl:px-32">
+    <section className="relative min-h-svh flex flex-col justify-center px-6 md:px-16 lg:px-24 xl:px-32">
       <div className="max-w-5xl">
         <Image
           src="/logo.png"
@@ -50,6 +50,26 @@ export function HeroSection() {
           EXPLORE HIVEPORT.IO
         </a>
       </div>
+
+      <a
+        href="#signet"
+        aria-label="Scroll to next section"
+        className="scroll-hint absolute bottom-8 md:bottom-10 left-1/2 -translate-x-1/2 text-grey-400 hover:text-grey-600 transition-colors duration-200"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </a>
     </section>
   );
 }

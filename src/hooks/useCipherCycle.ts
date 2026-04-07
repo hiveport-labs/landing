@@ -44,16 +44,13 @@ export function useCipherCycle(words: readonly string[]): {
   word: string;
 } {
   const [chars, setChars] = useState<CipherChar[]>(() =>
-    Array.from({ length: words[0].length }, () => ({
-      char: randomCipher(),
-      settled: false,
-    }))
+    Array.from(words[0], (c) => ({ char: c, settled: true }))
   );
   const [currentWord, setCurrentWord] = useState(words[0]);
 
   useEffect(() => {
     let index = 0;
-    let phase: Phase = "scramble";
+    let phase: Phase = "hold";
     let phaseStart = 0;
     let settleOrder: number[] = [];
     let prevLength = words[0].length;

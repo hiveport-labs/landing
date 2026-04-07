@@ -40,15 +40,7 @@ export function HeroSection() {
         <p className="mt-8 md:mt-12 text-grey-600 text-lg md:text-xl max-w-xl leading-relaxed">
           Decentralized infrastructure for humans & agents.
         </p>
-
-        <a
-          href="https://hiveport.io"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-10 md:mt-14 inline-block bg-orange text-white font-sans font-semibold text-xs md:text-sm tracking-[0.2em] uppercase px-8 py-4 hover:bg-orange-hover transition-colors duration-200"
-        >
-          EXPLORE HIVEPORT.IO
-        </a>
+        
       </div>
 
       <a

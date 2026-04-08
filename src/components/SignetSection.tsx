@@ -15,7 +15,7 @@ export function SignetSection() {
         <div className="w-12 h-px bg-grey-400 mx-auto my-10 md:my-14" />
 
         <h2 className="font-display text-xs md:text-sm tracking-[0.25em] uppercase text-grey-400 mb-6">
-          Our Signet
+          Our Mission
         </h2>
 
         <p className="text-grey-600 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">

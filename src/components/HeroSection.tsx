@@ -38,7 +38,7 @@ export function HeroSection() {
         </h1>
 
         <p className="mt-8 md:mt-12 text-grey-600 text-lg md:text-xl max-w-xl leading-relaxed">
-          Decentralized infrastructure for families.
+          AI for families
         </p>
         
       </div>

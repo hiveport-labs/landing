@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Hiveport | Distributed Data Technologies",
+  title: "Hiveport | AI for families",
   description:
-    "Hiveport builds decentralized, zero-trust P2P networking infrastructure. Privacy-first distributed data technologies from the ground up.",
+    "Hiveport builds decentralized, zero-trust P2P AI infrastructure. Privacy preserving technologies for families.",
   openGraph: {
-    title: "Hiveport | Distributed Data Technologies",
+    title: "Hiveport | AI for families",
     description:
-      "Decentralized, zero-trust P2P networking infrastructure. Privacy-first distributed data technologies from the ground up.",
+      "Hiveport builds decentralized, zero-trust P2P AI infrastructure. Privacy preserving technologies for families.",
     type: "website",
   },
 };

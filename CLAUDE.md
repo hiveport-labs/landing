@@ -1,10 +1,10 @@
 @AGENTS.md
 
-# Hiveport Labs — Landing Site
+# Hiveport — Landing Site
 
 ## Project Overview
 
-Corporate landing page for Hiveport Labs, a company building decentralized, zero-trust P2P networking infrastructure. This is a public-facing site — treat every change as production-visible.
+Corporate landing page for Hiveport, a company building decentralized, zero-trust P2P networking infrastructure. This is a public-facing site — treat every change as production-visible.
 
 ## Tech Stack
 

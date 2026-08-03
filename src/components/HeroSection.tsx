@@ -13,7 +13,7 @@ export function HeroSection() {
       <div className="max-w-5xl">
         <Image
           src="/logo.png"
-          alt="Hiveport Labs"
+          alt="Hiveport"
           width={484}
           height={105}
           priority

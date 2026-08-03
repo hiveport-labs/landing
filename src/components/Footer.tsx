@@ -19,10 +19,10 @@ export function Footer() {
             <div className="space-y-4">
               <p className="text-grey-400 mb-2">Projects</p>
               <a href="#" className="block text-grey-400 hover:text-white transition-colors">
-                Communication
+                Data
               </a>
               <a href="#" className="block text-grey-400 hover:text-white transition-colors">
-                Data
+                AI
               </a>
               <a href="#" className="block text-grey-400 hover:text-white transition-colors">
                 Education
@@ -32,7 +32,7 @@ export function Footer() {
             <div className="space-y-4">
               <p className="text-grey-400 mb-2">Open Source</p>
               <a
-                href="https://github.com/hiveport-labs"
+                href="https://github.com/hiveport-com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-grey-400 hover:text-white transition-colors"
@@ -50,7 +50,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-16 pt-8 border-t border-grey-800">
           <p className="text-grey-600 text-xs tracking-wide">
-            &copy; {new Date().getFullYear()} Hiveport Labs. All rights reserved.
+            &copy; {new Date().getFullYear()} Hiveport. All rights reserved.
           </p>
         </div>
       </div>

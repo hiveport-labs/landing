@@ -2,19 +2,19 @@ import { PillarCard } from "./PillarCard";
 
 const PILLARS = [
   {
-    title: "Communication",
-    description:
-      "Peer-to-peer zero-trust networking infrastructure for an agentic future. Encrypted mesh overlays without central authority — enabling private, permissionless connectivity at scale.",
-  },
-  {
     title: "Data",
     description:
       "Privacy-first autonomous data storage and distribution. Content-addressed, end-to-end encrypted media pipelines built for a surveillance-free future.",
   },
   {
+    title: "AI",
+    description:
+      "We leverage the power of AI in our products, while preserving privacy for our customers. Families should stay in control of their AI, not the other way round.",
+  },
+  {
     title: "Education",
     description:
-      "AI supported learning systems for kids. For a personalized learning experience which fosters the intrinsic will to explore.",
+      "Education is the foundation of our society. We build AI supported learning systems for kids to offer a personalized learning experience which fosters the intrinsic will to explore.",
   },
 ] as const;
 
